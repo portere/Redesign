@@ -2,5 +2,5 @@
 $(document).ready(function() {
 
   // Functions go here...
-  
+
 }); // end document ready

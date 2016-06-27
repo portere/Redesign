@@ -57,11 +57,13 @@ gulp.task('imagemin', function (){
 // BrowserSync Task (Live reload)
 gulp.task('browserSync', function() {
   browserSync({
+  browser: ["chrome"],
     server: {
       baseDir: './src/'
     }
   })
 });
+
 
 // Gulp Inline Source Task
 // Embed scripts, CSS or images inline (make sure to add an inline attribute to the linked files)
