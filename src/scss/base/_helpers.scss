@@ -2,6 +2,18 @@
 // Base – Helpers
 // ==========================================================================
 
+// grayscale { filter: grayscale(1); }
+// sepia { filter: sepia(1); }
+// contrast { filter: contrast(3); }
+// saturate { filter: saturate(4); }
+// hue-rotate { filter: hue-rotate(90deg); }
+// blur { filter: blur(5px); }
+// tint { filter: sepia(1) hue-rotate(200deg); }
+// invert { filter: invert(.8); }
+// opacity {  filter: opacity(.5); }
+// inkwell { filter: grayscale(1) brightness(0.45) contrast(1.05); }
+
+
 // General Resets
 .no-margin { margin: 0; }
 .no-padding { padding: 0; }
@@ -233,7 +245,7 @@
 
 // Tablet Helpers
 @include breakpoint(m) {
-  
+
   // General Resets
   .no-float-m { float: none; }
   .no-padding-m { padding: 0; }
@@ -266,7 +278,7 @@
   // Floats
   .left-m { float: left; }
   .right-m { float: right; }
-  
+
   // Alignment
   .center-m {
     float: none;
@@ -331,7 +343,7 @@
 
 // Desktop Helpers
 @include breakpoint(l) {
-  
+
   // General Resets
   .no-float-l { float: none; }
   .no-padding-l { padding: 0; }

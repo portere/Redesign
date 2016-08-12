@@ -4,7 +4,7 @@
  * Default variables
  */
 
-$val-sm: 100px;
+$val-sm: 50px;
 $val-md: 80px;
 $val-lg: 100vw;
 
@@ -178,6 +178,20 @@ $val-lg: 100vw;
 
 [data-aos='slide-left'] {
   transform: translateX(100%);
+}
+
+[data-aos^='byeBye'][data-aos^='byeBye'] {
+  transition-property: all;
+
+  &.aos-animate {
+  transform: translateX(1%);
+    opacity: 0;
+  }
+}
+
+[data-aos='byeBye-left'] {
+    transform: translate(0, 0);
+    opacity: 1;
 }
 
 
