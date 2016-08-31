@@ -28,18 +28,18 @@ $val-lg: 100vw;
  * Delay
  */
 
-[data-aos] {
-  @for $i from 1 through 60 {
-    body[data-aos-delay='#{$i*50}'] &,
-    &[data-aos][data-aos-delay='#{$i*50}'] {
-      transition-delay: 0;
+// [data-aos] {
+//   @for $i from 1 through 60 {
+//     body[data-aos-delay='#{$i*50}'] &,
+//     &[data-aos][data-aos-delay='#{$i*50}'] {
+//       transition-delay: 0;
 
-      &.aos-animate{
-        transition-delay: #{$i*50}ms;
-      }
-    }
-  }
-}
+//       &.aos-animate{
+//         transition-delay: #{$i*50}ms;
+//       }
+//     }
+//   }
+// }
 
 
 
@@ -179,22 +179,6 @@ $val-lg: 100vw;
 [data-aos='slide-left'] {
   transform: translateX(100%);
 }
-
-[data-aos^='byeBye'][data-aos^='byeBye'] {
-  transition-property: all;
-
-  &.aos-animate {
-  transform: translateX(1%);
-    opacity: 0;
-  }
-}
-
-[data-aos='byeBye-left'] {
-    transform: translate(0, 0);
-    opacity: 1;
-}
-
-
 
 
 /**

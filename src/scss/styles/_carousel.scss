@@ -1,0 +1,128 @@
+
+
+
+@-webkit-keyframes loop {
+  0% {
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -moz-transform: translateX(-66.6%);
+    -ms-transform: translateX(-66.6%);
+    -webkit-transform: translateX(-66.6%);
+    transform: translateX(-66.6%);
+  }
+}
+@-moz-keyframes loop {
+  0% {
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -moz-transform: translateX(-66.6%);
+    -ms-transform: translateX(-66.6%);
+    -webkit-transform: translateX(-66.6%);
+    transform: translateX(-66.6%);
+  }
+}
+@-ms-keyframes loop {
+  0% {
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -moz-transform: translateX(-66.6%);
+    -ms-transform: translateX(-66.6%);
+    -webkit-transform: translateX(-66.6%);
+    transform: translateX(-66.6%);
+  }
+}
+@keyframes loop {
+  0% {
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -moz-transform: translateX(-66.6%);
+    -ms-transform: translateX(-66.6%);
+    -webkit-transform: translateX(-66.6%);
+    transform: translateX(-66.6%);
+  }
+}
+.cssanimations .marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.cssanimations .marquee > ul {
+  list-style: none;
+  position: relative;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 13500px !important;
+  height: 160px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  -webkit-animation-play-state: running;
+  -moz-animation-play-state: running;
+  -o-animation-play-state: running;
+  animation-play-state: running;
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  animation: loop 250s linear infinite;
+}
+.cssanimations .marquee > ul > li {
+  white-space: normal;
+  position: relative;
+  text-align: justify;
+  text-justify: distribute-all-lines;
+  line-height: 0;
+  letter-spacing: -0.31em;
+  float: left;
+  width: 3500px;
+  overflow: hidden;
+  height: 160px;
+}
+.cssanimations .marquee > ul > li:before {
+  content: '';
+  position: relative;
+  height: 100%;
+  width: 0;
+}
+.cssanimations .marquee > ul > li:before,
+.cssanimations .marquee > ul > li > * {
+  vertical-align: middle;
+  display: inline-block;
+}
+.cssanimations .marquee > ul > li:after {
+  content: '.';
+  display: inline-block;
+  height: 0 !important;
+  width: 100%;
+  overflow: hidden !important;
+  visibility: hidden;
+  font-size: 0;
+  word-spacing: 100%;
+}
+.cssanimations .marquee > ul > li > * {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.cssanimations .marquee > ul > li img {
+  // margin: 0 1.6%;
+}

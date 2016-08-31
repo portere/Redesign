@@ -198,7 +198,7 @@ $columns: 12;
 
 // Medium Device Grid
 @include breakpoint(m) {
-  
+
   // Medium Device Grid Columns - Global Rules
   .col-1-m,
   .col-2-m,
@@ -281,7 +281,7 @@ $columns: 12;
 
 // Large Device Grid
 @include breakpoint(l) {
-  
+
   // Large Device Grid Columns - Global Rules
   .col-1-l,
   .col-2-l,
@@ -364,7 +364,7 @@ $columns: 12;
 
 // Extra Large Device Grid
 @include breakpoint(xl) {
-  
+
   // Extra Large Device Grid Columns - Global Rules
   .col-1-xl,
   .col-2-xl,
