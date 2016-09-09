@@ -1,100 +1,65 @@
 
 // Default JavaScript Functions and Initiations
 
-    $(document).ready(function() {
+// $(document).ready(function() {
+
+// $(window).on('focus', function() {
+
 
 // Wait for whole document load
-// $(window).load(function(){
+$(window).load(function(){
 
-  setTimeout(function() {
-    $('body').addClass('loaded');
-  }, 3000);
-
-
-
-  //
-  // Nav
-  //
-
-  var $li = $('.headerNav > ul > li'),
-      $navBar = $('.navBar');
-  $li.on('mouseenter', function(){
-    var i = $(this).index(),
-      $this = $(this),
-      liLeft = $li.width() * i;
-      $navBar.stop().animate({ left: liLeft });
-      // $navBar.stop().animate( { left: liLeft }, { duration: 'slow', easing: 'easeOutBack' });
-  });
+    setTimeout(function() {
+        $('body').addClass('loaded');
+    }, 0);
 
 
-/* Header Animation */
 
-(function () {
-    $(window).scroll(function () {
-        var Num = $(window).scrollTop() / 400;
+    // AOS.init({
+    //   offset: 200,
+    //   duration: 600,
+    //   easing: 'ease-in-sine',
+    //   delay: 100,
+    // });
+
+
+
+    /* Nav */
+
+    var $li = $('.headerNav > ul > li'),
+    $navBar = $('.navBar');
+    $li.on('mouseenter', function(){
+        var i = $(this).index(),
+        $this = $(this),
+        liLeft = $li.width() * i;
+        $navBar.stop().animate({ left: liLeft });
+        // $navBar.stop().animate( { left: liLeft }, { duration: 'slow', easing: 'easeOutBack' });
+});
+
+
+    /* Header Animation */
+
+    (function () {
+        $(window).scroll(function () {
+            var Num = $(window).scrollTop() / 400;
         var Num2 = $(window).scrollTop() * .0004; // higher number for larger scaling bg
         var Num2mod = Num2 + 1;
         var Num3 = $(window).scrollTop() * .05;
         var Num3mod = Num3 + 1;
         return $('.shade').css('opacity', Num),
         $(".bg, .bgHero").css({"transform":"scale(" + Num2mod + ")"});
+        });
+    }.call(this));
+
+    $(document).ready(function(){
+        $(".inR, .inL, .inF").addClass("activate");
+        $(".lineDiag").addClass("activate2");
     });
-}.call(this));
-
-/* Background Fixed + Cover fix. to stay relative to element and not viewport */
-// $(window).scroll(function() {
-//     var scrolledY = $(window).scrollTop();
-//     $('.heroWrap').css('background-position', 'center ' + ((scrolledY)) + 'px');
-// });
 
 
 
-$(document).ready(function(){
-    $(".inR, .inL, .inF").addClass("activate");
-    $(".lineDiag").addClass("activate2");
 });
-
-// One Page Navigation
-
-// $('a[href^="#"]').click(function(event) {
-//     var id = $(this).attr("href");
-//     var target = $(id).offset().top;
-//     $('html, body').animate({scrollTop:target}, 2000);
-//     event.preventDefault();
-// });
-
-// function getTargetTop(elem){
-//     var id = elem.attr("href");
-//     var offset = 60;
-//     return $(id).offset().top - offset;
-// }
-
-
-// $(window).scroll(function(e){
-//     isSelected($(window).scrollTop())
-// });
-
-// var sections = $('a[href^="#"]');
-
-// function isSelected(scrolledTo){
-
-//     var threshold = 100;
-//     var i;
-
-//     for (i = 0; i < sections.length; i++) {
-//         var section = $(sections[i]);
-//         var target = getTargetTop(section);
-
-//         if (scrolledTo > target - threshold && scrolledTo < target + threshold) {
-//             sections.removeClass("active");
-//             section.addClass("active");
-//         }
-
-//     };
-// }
-
-
-});  // end document ready
+// end document ready
 
 
 
@@ -186,63 +151,10 @@ if(!$('#myCanvas').tagcanvas({
 
 
 
-/*======================================
-=            Inertia Scroll            =
-======================================*/
+// Add .scrolled to body after 1px of scroll
 
-jQuery(function($) {
-
-"use strict";
-
-var win = $(window)
-    , target = $('body')
-    , wrapper = target.find('article')
-    , easing = "cubic-bezier(0.19, 1, 0.22, 1)" //css easing
-    , duration = "1.2s" //duration ms(millisecond) or s(second)
-    , top = 0
-    , kineticScroll = {
-        _init: function() {
-            if( wrapper.length == 1 ) {
-                target.height(wrapper.height());
-                wrapper.css({
-                    transition: 'transform ' + duration + ' ' + easing,
-                    position: 'fixed',
-                    top: '0',
-                    left: '0',
-                    width: '100%',
-                    padding: '0',
-                    zIndex: '-1'
-                });
-                win.on({
-                    scroll: function () {
-                        kineticScroll._scroll();
-                    }
-                    , resize: function() {
-                        target.height(wrapper.outerHeight());
-                    }
-                });
-                kineticScroll._scroll();
-            }
-        },
-        _scroll: function() {
-            top = win.scrollTop();
-            wrapper.css('transform', 'translateY(-' + top + 'px)');
-        }
-    };
-if (typeof window.ontouchstart == 'undefined') {
-    kineticScroll._init();
-}
-});
-
-/*=====  End of Inertia Scroll  ======*/
-
-
-
-
-/* Sticky Nav */
-
-var navOffset = 1;
 $(window).scroll(function(){
+    var navOffset = 1;
     var scrollPos = $(window).scrollTop();
     if (scrollPos >= navOffset) {
         $(".header, .line, .lineDown, .socialIcons, .titleDate, body").addClass("scrolled");
@@ -256,85 +168,91 @@ $(window).scroll(function(){
 
 
 
-/**
- * jQuery Momentum Scroll
- * This will transform the native scroll of the browser into a very smooth scroll with momentum effect
- * https://github.com/iahnn/jQuery-Momentum-Scroll
- * licensed under MIT
- * version 1.0.2
- */
-// jQuery(function($) {
+/*========================================================
+=            Animate on Scroll enter viewport            =
+========================================================*/
+$(document).ready(function() {
+    var winHeight = $(window).height(),
+// Distance from top to remove class, a -1 toggles it after it's offscreen
+topLimit = winHeight * -1,
+// Distance from Bottom to add class,
+bottomLimit = winHeight * 1.5;
+// These distances are relative to the bottom of an element
 
-//     "use strict";
+$(window).on('scroll', function() {
+    $('.scroll-animate').each(function() {
+        var thisTop = $(this).offset().top - $(window).scrollTop();
+        if (thisTop >= topLimit && (thisTop + $(this).height()) <= bottomLimit) {
+            $(this).addClass('intoPosition')
+        }
+        else{
+            $(this).removeClass('intoPosition')
+        }
+    });
+});
+});
 
-//     var win = $(window)
-//         , target = $('body')
-//         , wrapper = target.find('> div')
-//         , easing = "cubic-bezier(0.19, 1, 0.22, 1)" //css easing
-//         , duration = "1.1s" //duration ms(millisecond) or s(second)
-//         , top = 0
-//         , resizeTimeout
-//         , jmScroll = {
-//             _init: function() {
-//                 if( wrapper.length == 1 ) {
-//                     target.css({
-//                         margin: '0',
-//                         padding: '0',
-//                         width: '100%',
-//                         height: wrapper.height() + 'px'
-//                     });
 
-//                     wrapper.css({
-//                         transition: 'transform ' + duration + ' ' + easing,
-//                         position: 'fixed',
-//                         top: '0',
-//                         left: '0',
-//                         width: '100%',
-//                         padding: '0',
-//                         zIndex: '-1',
-//                         display: 'block',
-//                         backfaceVisibility: 'hidden'
-//                     });
+/*=====  End of Animate on Scroll enter viewport  ======*/
 
-//                     jmScroll._reFlow(function() {
-//                         jmScroll._scroll();
-//                     });
-//                 }
-//             },
 
-//             _scroll: function() {
-//                 top = win.scrollTop();
-//                 wrapper.css('transform', 'translateY(-' + top + 'px)');
-//             },
+/*============================
+=            GSAP            =
+============================*/
 
-//             _reFlow: function(callback) {
-//                 clearTimeout(resizeTimeout);
-//                 resizeTimeout = setTimeout(function() {
-//                     target.height(wrapper.height());
+// var $box = $('.tweenBox'),
+//     mainTl = new TimelineMax({repeat: -1, repeatDelay: 0});
 
-//                     var getType = {};
-//                     var isCallback = callback && getType.toString.call(callback) === '[object Function]';
+// $box.each(function(index, element){
 
-//                     if(isCallback) {
-//                         callback();
-//                     }
-//                 }, 200);
-//             }
-//         };
+//     var $boxSmall = $(this).find('.tweenBoxSmall'),
+//       $box = $(this),
+//       delay = getRandom(1, 1.7),
+//       boxTl = new TimelineMax({delay: delay});
 
-//     if (typeof window.ontouchstart == 'undefined') {
-//         win.on({
-//             scroll: function () {
-//                 jmScroll._scroll();
-//             }
-//             , resize: function() {
-//                 jmScroll._reFlow();
-//             }
-//             , load: function() {
-//                 jmScroll._init();
-//             }
-//         });
-//     }
+//     // Add tweens to the box timeline
+//     boxTl
+//     .from($box, 0.2, {autoAlpha: 0, y: '-=80', ease:Bounce.easeOut})
+//         .fromTo($boxSmall, 1, {y:'-=80'}, {y: '0', ease:Bounce.easeOut})
+//     .to($box, .3, {rotation: '45',ease:Power4.easeInOut})
+//     .to($boxSmall, .3, {x: '0', ease:Bounce.easeOut}, '-=0.2')
+//     .to($box, .3, {rotation: '-45',ease:Power4.easeInOut})
+//     .to($boxSmall, .3, {x: '-100%', ease:Bounce.easeOut}, '-=0.2')
+//     .to($boxSmall, 0.3, {scale: 2, transformOrigin: 'bottom left', autoAlpha: 0.5, ease:Power0.easeNone})
+//     .to($box, 0.5, {rotation: 720, autoAlpha: 0, scale: 2.3,ease:Power4.easeIn}, '+=0.2');
+
+//     mainTl.add(boxTl, '0');
+
 // });
 
+// function getRandom(min, max) {
+//   return min + Math.random() * (max - min);
+// }
 
+/*=====  End of GSAP  ======*/
+
+
+
+/*======================================
+=     Inertia Scroll uses GSAP         =
+======================================*/
+
+// $(function(){
+//     var $window = $(window);        //Window object
+//     var scrollTime = 2;           //Scroll time
+//     var scrollDistance = 500;       //Distance. Use smaller value for shorter scroll and greater value for longer scroll
+//     $window.on("mousewheel DOMMouseScroll", function(event){
+//         event.preventDefault();
+//         var delta = event.originalEvent.wheelDelta/120 || -event.originalEvent.detail/3;
+//         var scrollTop = $window.scrollTop();
+//         var finalScroll = scrollTop - parseInt(delta*scrollDistance);
+//         TweenMax.to($window, scrollTime, {
+//             scrollTo : { y: finalScroll, autoKill:true },
+//             ease: Expo.easeOut, //For more easing functions see http://api.greensock.com/js/com/greensock/easing/package-detail.html
+//             autoKill: true,
+//             overwrite: 5
+//         });
+//     });
+// });
+
+/*=====  End of Inertia Scroll  ======*/

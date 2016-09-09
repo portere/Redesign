@@ -19,10 +19,12 @@
 
 *,*::before,*::after { box-sizing: border-box; }
 
-$raisin:    #222222; // Less Dark
-$eerie:     #181818; // Dark
-$licorice:  #131313; // Darker
-$darkest:   #111111; // Darkest
+$dark1: #0E0E0E;
+$dark2: #111111;
+$dark3: #1c1c1c;
+$dark4: #282828;
+$dark5: #151515;
+
 $gainsboro: #cddddd; // Lighter
 $chalice:   #B5B1AD; // Light
 $white:     #eeeeee; // White
@@ -37,6 +39,14 @@ $mont: 'Montserrat', sans-serif;
 $heroHeight: 100vh;
 $speed: 300ms;
 
+
+
+.dark1 {background: $dark1;}
+.dark2 {background: $dark2;}
+.dark3 {background: $dark3;}
+.dark4 {background: $dark4;}
+.dark5 {background: $dark5;}
+
 html, body { height: 100%; }
 
 body {
@@ -44,6 +54,7 @@ body {
     color: $chalice;
     font-family: $font1;
     background: #020202;
+    // background: #131516;
     margin:0;
     overflow-x: hidden;
     &:before {
@@ -118,6 +129,28 @@ hr {
     height: 100vh;
 }
 
+.tweenBox {
+    background-color: green;
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    width: 100px;
+    height: 100px;
+    transform: translate(-155%, 0%);
+    overflow: hidden;
+}
+.tweenBoxSmall {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: transparentize(black,.7);
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
 .backToTop {
     position: relative;
     color: #aaa;
@@ -133,14 +166,48 @@ hr {
     }
 }
 
+.backtotop {
+    $backColor: #888;
+    // For a round button
+    // border-radius: 100%;
+    margin: 30px auto;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border: 1px solid $backColor;
+    background-image: linear-gradient(to top, rgba(255,255,255,.8) 50%, transparent 50%);
+    background-position: top center;
+    background-repeat: repeat;
+    background-size: 100% 200%;
+    transition: all 0.2s ease-out;
+    svg { transition: all 0.3s ease; }
+    svg polygon {
+        fill:$backColor;
+        transition: all 0.2s ease-out;
+    }
+    &:hover {
+        background-position: bottom center;
+        svg { transform: scale(1.6); }
+        svg polygon {
+            transition: all 1s ease-out;
+            fill: #111;
+        }
+    }
+}
+
 .socialIcons {
     display: inline-block;
     margin-top: 20px;
 }
 
 img {
-    -webkit-filter: brightness(0.9) contrast(1.2) saturate(.8) sepia(0.6) grayscale(10%);
+    filter: brightness(1) contrast(1.2) saturate(0) sepia(0) grayscale(100%);
+    transition: filter 1s;
+
+    &:hover {-webkit-filter:none}
 }
+
+
 
 .Elogo {
     position: absolute;
@@ -148,12 +215,12 @@ img {
     top: 50%;
     transform: translate(-50%, -50%) scale3d(2,2,2);
     opacity: 1;
-    transition: 1s 3s all ease-out;
+    transition: 3s all ease-out;
     -webkit-backface-visibility: hidden;
     max-width: 130px;
     path {
         stroke: #fff;
-        -webkit-filter: brightness(9);
+        // -webkit-filter: brightness(9);
         stroke-dasharray: 1000;
         stroke-dashoffset: 1000;
         animation: dash 4s 3s linear forwards;
@@ -162,7 +229,8 @@ img {
     body.scrolled & {
     }
     body.loaded & {
-        transform: translate(-50%, -50%) scale3d(1,1,1);
+        transform: translate(-50%, -50%) scale3d(1,1,1) rotateY(360deg);
+        transition: 1s 5s all ease-out;
     }
 }
 
@@ -185,6 +253,7 @@ img {
     background-size: cover;
     height: $heroHeight;
     width: 100vw;
+    position: relative;
     body.loaded & {
         height: 93vh;
         transition: height 1.5s 5s ease;
@@ -279,28 +348,28 @@ img {
             a {
                 &.a1 {
                     transform: translateY(-100px);
-                    transition: 2s all ease-out;
+                    transition: 1s all ease;
                     body.scrolled & {
                         transform: translateY(0px);
                     }
                 }
                 &.a2 {
-                    transform: translateY(-500px);
-                    transition: 2s all ease-out;
+                    transform: translateY(-100px);
+                    transition: 1.5s all ease;
                     body.scrolled & {
                         transform: translateY(0px);
                     }
                 }
                 &.a3 {
-                    transform: translateY(-1000px);
-                    transition: 2s all ease-out;
+                    transform: translateY(-100px);
+                    transition: 2s all ease;
                     body.scrolled & {
                         transform: translateY(0px);
                     }
                 }
                 &.a4 {
-                    transform: translateY(-1500px);
-                    transition: 2s all ease-out;
+                    transform: translateY(-100px);
+                    transition: 2.5s all ease;
                     body.scrolled & {
                         transform: translateY(0px);
                     }
@@ -414,12 +483,41 @@ img {
 // }
 
 
+.scrollDown {
+    path { fill: #ccc; }
+    width: 56px;
+    height: 56px;
+    position: absolute;
+    left: 50%;
+    margin-left: -28px;
+    top: 20px;
+    opacity: .3;
+    transform: scale3d(1,1,1);
+    #scrollDownArrow { animation: scrollDownAnim ease 3s infinite; }
+    #scrollDownArrow2 { animation: scrollDownAnim2 ease 3s infinite; }
+    @keyframes scrollDownAnim {
+        0% { opacity: 0; transform: translate3d(0, -400%, 0) scale(0); }
+        50% { opacity: 1; }
+        100% { opacity: 0; transform: translate3d(0, 0, 0) scale(1.8); transform-origin: center; }
+    }
+    @keyframes scrollDownAnim2 {
+        0% { opacity: 0; transform: translate3d(0, -700%, 0) scale(0); }
+        50% { opacity: 1; }
+        100% { opacity: 0; transform: translate3d(0, 0, 0) scale(1.5); transform-origin: center; }
+    }
+    body.scrolled & {
+        opacity: 0;
+        transition: all 2s ease;
+    }
+}
+
+
 .titleDate2 {
     writing-mode: vertical-lr;
     font-family: $mont;
     font-weight: 800;
     position: absolute;
-    left: -1vw;
+    left: -3.5vw;
     top: 3vh;
     font-size: 27em;
     line-height: 1;
@@ -429,8 +527,8 @@ img {
     transition: all 1s ease;
     opacity: .2;
     body.scrolled & {
-        opacity: 0;
-        left: -1vw;
+        // opacity: 0;
+        left: -10vw;
     }
     @include breakpoint(m) {
     }
@@ -452,12 +550,49 @@ img {
     transform: rotate(5deg);
 }
 
+$dur: 1000ms;
+$dur2: $dur + 500ms;
+$dur3: $dur + 1000ms;
+
+.scroll-animate.dur2 { transition-duration: $dur2; }
+.scroll-animate.dur3 { transition-duration: $dur3; }
+
+.scroll-animate {
+  transition: all 500ms ease-in-out;
+  opacity: 0;
+}
+
+.scroll-animate-fadeInUp {
+  transition: all $dur ease-in-out;
+  transform: translate3d(0, 200px, 0);
+  opacity: 0;
+}
+
+.scroll-animate-fadeInLeft {
+  transition: all 500ms ease-in-out;
+  transform: translate3d(-100%, 0, 0);
+  opacity: 0;
+
+}
+
+.scroll-animate-fadeInRight {
+  transition: all 500ms ease-in-out;
+  transform: translate3d(100%, 0, 0);
+  opacity: 0;
+}
+
+.intoPosition {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+
 .section {
     // background: url("../img/textureBG.jpg");
     border-radius: 10px;
     background: #111;
     padding: 200px;
-    margin: 0 50px;
+    // margin: 0 50px;
     position: relative;
     // border-bottom: 1px solid #444;
     &.highRight {
@@ -468,18 +603,6 @@ img {
         -webkit-clip-path: polygon(0 0, 100% 80px, 100% 100%, 0 100%);
         margin-top: -100px;
     }
-    &.eerieBG {
-        background: $eerie;
-    }
-    &.onyxBG {
-        background: $onyx;
-    }
-    &.licoriceBG {
-        background: $licorice;
-    }
-    &.raisinBG {
-        background: $raisin;
-    }
     &.alpha {
         text-align: right;
         // height: 500px;
@@ -488,7 +611,7 @@ img {
         // background: url("../img/textureBG.jpg");
     }
     &.beta {
-        background: $raisin;
+        background: $dark3;
         padding: 80px;
     }
     &.gamma {
@@ -508,7 +631,6 @@ img {
     &.subTop {
         height: 0;
         margin: 0 50px 0;
-        background: $darkest;
         padding: 100px 0;
         body.loaded & {
             // margin: -80px 50px 0;
@@ -516,7 +638,7 @@ img {
         }
     }
     &.delta {
-        background: $darkest;
+        background: $dark2;
         padding: 100px;
     }
     &.epsilon {
@@ -555,12 +677,59 @@ img {
         padding: 0;
     }
     &.kappa {
-        background: $licorice;
+        background: $dark2;
     }
     &.tagSection {
         padding: 0;
     }
 }
+
+.scrollDownWrap {
+    transform: rotate(90deg);
+    transform-origin: right center;
+    position: absolute;
+    left: 150px;
+    bottom: 50px;
+    body.loaded & {
+        animation: animArrow 1s 6s cubic-bezier(.56,.37,.5,1.21) forwards;
+    }
+    body.scrolled & {
+        // opacity: 0;
+        // transition: 2s;
+    }
+    .scrollDown {
+        position: absolute;
+        display: inline-block;
+        height: 120px;
+        width: 100px;
+        top: 40px;
+    }
+    .triangle {
+        fill: rgba(255,255,255,.6);
+        stroke: rgba(255,255,255,0);
+    }
+    .circle {
+        fill: none;
+        stroke-width: 4;
+        position: absolute;
+        display: inline-block;
+        height: 0;
+        animation: animCirc 2s ease infinite;
+        stroke: rgba(255,255,255,.1);
+    }
+}
+
+@keyframes animArrow {
+    0% { top: -5px; }
+    50% { top: -60px; }
+    100% { top: -5px; }
+}
+@keyframes animCirc {
+    0% {   r:40; stroke-width: 2; }
+    50% {  r:40; stroke-width: 15; }
+    100% { r:40; stroke-width: 2; }
+}
+
 
 .chapter {
     color: #444;
@@ -640,6 +809,36 @@ img {
     }
 }
 
+.logos2 {
+    background: #080808;
+    background-position: center 70px;
+    background-attachment: fixed;
+    background-size: 118%;
+    // transform: rotate(5deg);
+    transform: translateX(-50%);
+    left: 50%;
+    overflow: hidden;
+    width: 110vw;
+    transform-origin: 50% -45%;
+    z-index: 1;
+    position: relative;
+    // padding: 20px 0;
+    // box-shadow: 0 0 0px 80px #151515;
+    display: flex;
+    flex-wrap: no-wrap;
+    img {
+        // transform: rotate(-5deg);
+        // transform-origin: center center;
+        transition: 1s ease;
+        filter:  brightness(1) grayscale(100%);
+        opacity: .1;
+        margin: 0px 20px;
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
 .media {
     position: absolute;
     z-index: 11;
@@ -712,7 +911,7 @@ img {
     text-align: right;
     line-height: 2;
     body.scrolled & {
-        // opacity: 0;
+        opacity: 1;
         right: 15%;
         transition: all ease 1s;
     }
@@ -797,10 +996,9 @@ img {
 .picFrame {
     overflow: hidden;
     display: inline-block;
-    height: 300px;
-    width: 300px;
-    background: red;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.7);
+    img {
+        // width: 100%;
+    }
 }
 
 
@@ -823,8 +1021,14 @@ img {
 }
 
 .footer {
-    padding: 50px 100px 200px;
+    padding: 50px 0 50px;
     text-align: center;
+    position: fixed;
+    bottom: 0;
+    z-index: -1;
+    width: 100%;
+    height: 55vh;
+    // background:  rgb(30, 33, 38);
 }
 
 

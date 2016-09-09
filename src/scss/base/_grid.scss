@@ -6,6 +6,12 @@
 .clear:before, .clear:after { content: " "; display: table; } .clear:after { clear: both; }
 .row:before, .row:after { content: ""; display: table; } .row:after { clear: both; }
 
+.col-6,
+.col-4,
+.col-8 {
+  height: 440px;
+}
+
 // Rows
 .row {
   position: relative;
@@ -139,8 +145,8 @@
 .col-2-5,
 .col-3-5,
 .col-4-5 {
-  padding-left: $grid-gutter;
-  padding-right: $grid-gutter;
+  // padding-left: $grid-gutter;
+  // padding-right: $grid-gutter;
   position: relative;
   float: left;
 }
