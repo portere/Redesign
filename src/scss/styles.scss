@@ -36,7 +36,6 @@ $font3: 'Roboto', sans-serif;
 $font4: 'Gentium Basic', serif;
 $font5: 'Ubuntu', sans-serif;
 $mont: 'Montserrat', sans-serif;
-$heroHeight: 100vh;
 $speed: 300ms;
 
 
@@ -129,28 +128,6 @@ hr {
     height: 100vh;
 }
 
-.tweenBox {
-    background-color: green;
-    position: absolute;
-    top: 50%;
-    left: 15%;
-    width: 100px;
-    height: 100px;
-    transform: translate(-155%, 0%);
-    overflow: hidden;
-}
-.tweenBoxSmall {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: transparentize(black,.7);
-    z-index: 1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-
 .backToTop {
     position: relative;
     color: #aaa;
@@ -207,33 +184,40 @@ img {
     &:hover {-webkit-filter:none}
 }
 
-
-
 .Elogo {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale3d(2,2,2);
+    left: 0;
+    right: 0;
+    top: 250px;
     opacity: 1;
+    margin: 0 auto;
     transition: 3s all ease-out;
     -webkit-backface-visibility: hidden;
-    max-width: 130px;
+    max-width: 300px;
+    // -webkit-transform: translate(-50%,-50%);
     path {
         stroke: #fff;
         // -webkit-filter: brightness(9);
         stroke-dasharray: 1000;
         stroke-dashoffset: 1000;
-        animation: dash 4s 3s linear forwards;
+        animation: dash 4s 0s linear forwards;
         fill: transparent;
     }
     body.scrolled & {
     }
     body.loaded & {
-        transform: translate(-50%, -50%) scale3d(1,1,1) rotateY(360deg);
-        transition: 1s 5s all ease-out;
+        -webkit-animation: spin 2s 3s forwards ease-in-out
     }
 }
 
+@-webkit-keyframes spin {
+    100%   { -webkit-transform: rotate3d(1, 1, 1, 360deg) scale(.5); }
+
+    // 0%     { -webkit-transform:translate(-50%, -50%) scale(2) rotate(0deg); }
+    // 100%   { -webkit-transform:translate(-50%, -50%) scale(1) rotate(360deg); }
+
+   // transform: rotate3d(1, 1, 1, 360deg);
+}
 @keyframes dash {
     from { stroke-dashoffset: 1000; }
     to { stroke-dashoffset: 0; }
@@ -251,12 +235,20 @@ img {
     background-position: right center;
     background-attachment: scroll;
     background-size: cover;
-    height: $heroHeight;
+    height: 110vh;
     width: 100vw;
     position: relative;
     body.loaded & {
-        height: 93vh;
-        transition: height 1.5s 5s ease;
+        height: 101vh;
+        transition: height 1.5s 8s ease;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url("../img/grid.png");
+        filter: brightness(.4);
     }
 }
 
@@ -266,29 +258,6 @@ img {
     right: 20px;
     z-index: 999;
     transition: all 1500ms ease;
-    // a, a > span {
-    //     position: relative;
-    //     color: inherit;
-    //     text-decoration: none;
-    //     line-height: .8em;
-    //     &:before, &:after {
-    //         content: '';
-    //         position: absolute;
-    //         transition: transform .5s ease;
-    //     }
-    // }
-    // a {
-    //     text-decoration: none;
-    //     color: #eeeeee;
-    //     display: inline-block;
-    //     margin: 0;
-    //     font-size: 1em;
-    //     opacity: .5;
-    //     transition: all .5s ease;
-    //     &:hover {
-    //         opacity: 1;
-    //     }
-    // }
     body.scrolled & {
         top: 22px;
         right: 30px;
@@ -401,12 +370,9 @@ img {
     }
 }
 
-
-
-
 .header {
     position: absolute;
-    z-index: 0;
+    z-index: 4;
     left: 0;
     top: 0;
     transform: translate(8vw, 15vh);
@@ -461,57 +427,6 @@ img {
 }
 
 
-// .titleDate {
-//     font-family: $font5;
-//     writing-mode: vertical-lr;
-//     font-weight: 800;
-//     line-height: .8;
-//     position: fixed;
-//     left: 8vw;
-//     top: 195px;
-//     font-size: 4em;
-//     color: #222;
-//     letter-spacing: -5px;
-//     transition: all 1s ease;
-//     opacity: .5;
-//     &.scrolled {
-//         opacity: 0;
-//         left: 4vw;
-//     }
-//     @include breakpoint(m) {
-//     }
-// }
-
-
-.scrollDown {
-    path { fill: #ccc; }
-    width: 56px;
-    height: 56px;
-    position: absolute;
-    left: 50%;
-    margin-left: -28px;
-    top: 20px;
-    opacity: .3;
-    transform: scale3d(1,1,1);
-    #scrollDownArrow { animation: scrollDownAnim ease 3s infinite; }
-    #scrollDownArrow2 { animation: scrollDownAnim2 ease 3s infinite; }
-    @keyframes scrollDownAnim {
-        0% { opacity: 0; transform: translate3d(0, -400%, 0) scale(0); }
-        50% { opacity: 1; }
-        100% { opacity: 0; transform: translate3d(0, 0, 0) scale(1.8); transform-origin: center; }
-    }
-    @keyframes scrollDownAnim2 {
-        0% { opacity: 0; transform: translate3d(0, -700%, 0) scale(0); }
-        50% { opacity: 1; }
-        100% { opacity: 0; transform: translate3d(0, 0, 0) scale(1.5); transform-origin: center; }
-    }
-    body.scrolled & {
-        opacity: 0;
-        transition: all 2s ease;
-    }
-}
-
-
 .titleDate2 {
     writing-mode: vertical-lr;
     font-family: $mont;
@@ -523,12 +438,11 @@ img {
     line-height: 1;
     color: #222;
     letter-spacing: -38px;
-    -webkit-transition: all 1s ease;
-    transition: all 1s ease;
-    opacity: .2;
+    transition: all 2s ease;
+    opacity: .13;
     body.scrolled & {
         // opacity: 0;
-        left: -10vw;
+        // left: -10vw;
     }
     @include breakpoint(m) {
     }
@@ -564,34 +478,119 @@ $dur3: $dur + 1000ms;
 
 .scroll-animate-fadeInUp {
   transition: all $dur ease-in-out;
-  transform: translate3d(0, 200px, 0);
+  transform: translate3d(0, 100px, 0);
   opacity: 0;
 }
 
 .scroll-animate-fadeInLeft {
   transition: all 500ms ease-in-out;
-  transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100px, 0, 0);
   opacity: 0;
 
 }
 
 .scroll-animate-fadeInRight {
   transition: all 500ms ease-in-out;
-  transform: translate3d(100%, 0, 0);
+  transform: translate3d(100px, 0, 0);
   opacity: 0;
 }
 
 .intoPosition {
-  transform: translate3d(0, 0, 0);
-  opacity: 1;
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    position: relative;
+    // transition: box-shadow .5s!important;
+    &:hover {
+        z-index: 1;
+        box-shadow: 0 10px 20px #000;
+    }
 }
 
+.uncover,
+.uncover-r {
+    img { width: 100%; }
+}
+
+.uncover {
+    width: 0;
+    height: 440px;
+    overflow: hidden;
+    position: relative;
+    transform: translate(0,0,0);
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #080808;
+        z-index: 1;
+    }
+    &.triggered {
+        width: 100%;
+        transition: 1.5s ease-in-out;
+        &:before {
+            transform: translateX(-100%);
+            transition: 1.5s 1.5s ease-in-out;
+        }
+    }
+}
+
+.uncover-r {
+    width: 0;
+    height: 440px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    transform: translate(0,0,0);
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: #080808;
+        z-index: 1;
+    }
+    &.triggered {
+        transition: 1.5s ease-in-out;
+        width: 100%;
+        right: 0;
+        &:before {
+            transform: translateX(100%);
+            transition: 1.5s 1.5s ease-in-out;
+            right: 0;
+        }
+    }
+}
+
+.intro {
+    text-align: center;
+    line-height: 2em;
+    font-size: 2em;
+    padding: 100px 0 200px;
+    max-width: 900px;
+    margin: 0 auto;
+    a {
+        color: #666;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        line-height: 1;
+        border: 1px dotted #444;
+        padding: 10px;
+        &:hover {
+            background: rgba(255,255,255,.1);
+        }
+    }
+}
 
 .section {
     // background: url("../img/textureBG.jpg");
-    border-radius: 10px;
+    // border-radius: 10px;
     background: #111;
-    padding: 200px;
+    padding: 100px;
     // margin: 0 50px;
     position: relative;
     // border-bottom: 1px solid #444;
@@ -630,7 +629,7 @@ $dur3: $dur + 1000ms;
     }
     &.subTop {
         height: 0;
-        margin: 0 50px 0;
+        // margin: 0 50px 0;
         padding: 100px 0;
         body.loaded & {
             // margin: -80px 50px 0;
@@ -681,6 +680,35 @@ $dur3: $dur + 1000ms;
     }
     &.tagSection {
         padding: 0;
+    }
+}
+
+
+
+.scrollDown {
+    path { fill: #ccc; }
+    width: 76px;
+    height: 56px;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    opacity: .2;
+    transform: scale3d(1,1,1);
+    #scrollDownArrow { animation: scrollDownAnim ease 3s infinite; }
+    #scrollDownArrow2 { animation: scrollDownAnim2 ease 3s infinite; }
+    @keyframes scrollDownAnim {
+        0% { opacity: 0; transform: translate3d(0, -400%, 0) scale(0); }
+        50% { opacity: 1; }
+        100% { opacity: 0; transform: translate3d(0, 0, 0) scale(1.8); transform-origin: center; }
+    }
+    @keyframes scrollDownAnim2 {
+        0% { opacity: 0; transform: translate3d(0, -700%, 0) scale(0); }
+        50% { opacity: 1; }
+        100% { opacity: 0; transform: translate3d(0, 0, 0) scale(1.5); transform-origin: center; }
+    }
+    body.scrolled & {
+        opacity: 0;
+        transition: all 2s ease;
     }
 }
 
@@ -782,7 +810,7 @@ $dur3: $dur + 1000ms;
 }
 
 .logos {
-    background: url("../img/stream.jpg") no-repeat #000;
+    // background: url("../img/stream.jpg") no-repeat #000;
     background-position: center 70px;
     background-attachment: fixed;
     background-size: 118%;
@@ -806,8 +834,29 @@ $dur3: $dur + 1000ms;
         // &:hover {
         //     opacity: 1;
         // }
+        @for $i from 1 through 41{
+            &:nth-child(#{$i}){
+                animation: flyin#{$i} 8s ease-in-out infinite;
+            }
+            @keyframes flyin#{$i}{
+                0%,100% {
+                    transform: translateY(0);
+                }
+                25%{
+                    transform: translateY((random(20) - 10) + px);
+                }
+                50%{
+                    transform: translateY(0);
+                }
+                75%{
+                    transform: translateY((random(20) - 10) + px);
+                }
+            }
+        }
     }
 }
+
+
 
 .logos2 {
     background: #080808;
@@ -996,6 +1045,7 @@ $dur3: $dur + 1000ms;
 .picFrame {
     overflow: hidden;
     display: inline-block;
+    // box-shadow: 2px 5px 20px rgba(0,0,0,.5);
     img {
         // width: 100%;
     }
@@ -1145,13 +1195,13 @@ $dur3: $dur + 1000ms;
 
 
 .heroEffects {
-    height: $heroHeight;
+    height: 100vh;
     position: relative;
     z-index: -1;
     top: 0;
     left: 0;
     .bg {
-        height: $heroHeight;
+        height: 100vh;
         position: fixed;
         width: 100%;
         background-image: url('../img/people.jpg');

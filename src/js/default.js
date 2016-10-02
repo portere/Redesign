@@ -14,16 +14,6 @@ $(window).load(function(){
     }, 0);
 
 
-
-    // AOS.init({
-    //   offset: 200,
-    //   duration: 600,
-    //   easing: 'ease-in-sine',
-    //   delay: 100,
-    // });
-
-
-
     /* Nav */
 
     var $li = $('.headerNav > ul > li'),
@@ -33,8 +23,7 @@ $(window).load(function(){
         $this = $(this),
         liLeft = $li.width() * i;
         $navBar.stop().animate({ left: liLeft });
-        // $navBar.stop().animate( { left: liLeft }, { duration: 'slow', easing: 'easeOutBack' });
-});
+    });
 
 
     /* Header Animation */
@@ -48,14 +37,8 @@ $(window).load(function(){
         var Num3mod = Num3 + 1;
         return $('.shade').css('opacity', Num),
         $(".bg, .bgHero").css({"transform":"scale(" + Num2mod + ")"});
-        });
-    }.call(this));
-
-    $(document).ready(function(){
-        $(".inR, .inL, .inF").addClass("activate");
-        $(".lineDiag").addClass("activate2");
     });
-
+    }.call(this));
 
 
 });
@@ -83,36 +66,6 @@ $(document).ready(function(){
 });
 
 /*=====  End of Masking  ======*/
-
-
-
-
-$(document).ready(function() {
-
-    $(window).scroll(function(){
-        var $st = $(window).width();
-        if($st > 1000)
-            windowScroll()
-    });
-
-    function windowScroll(){
-        var st = $(window).scrollTop();
-
-        if(st >= ($('.section').offset().top - $(window).height())){
-            // $(".test4").css({"top": 270 - ((st - $('body').offset().top) * 0.5) + "px"});
-
-            $(".img-1").css({"top": 1100 - ((st - $('body').offset().top) * 0.2) + "px"});
-            $(".img-2").css({"top": 1200 - ((st - $('body').offset().top) * 0.3) + "px"});
-            $(".img-3").css({"top": 1300 - ((st - $('body').offset().top) * 0.45) + "px"});
-            $(".img-4").css({"top": 1400 - ((st - $('body').offset().top) * 0.35) + "px"});
-            $(".img-5").css({"top": 1500 - ((st - $('body').offset().top) * 0.4) + "px"});
-            $(".img-6").css({"top": 1400 - ((st - $('body').offset().top) * 0.22) + "px"});
-        }
-    }
-});
-
-
-
 
 
 
@@ -169,7 +122,7 @@ $(window).scroll(function(){
 
 
 /*========================================================
-=            Animate on Scroll enter viewport            =
+=            intoPosition
 ========================================================*/
 $(document).ready(function() {
     var winHeight = $(window).height(),
@@ -191,9 +144,9 @@ $(window).on('scroll', function() {
     });
 });
 });
+/*=====  End  ======*/
 
 
-/*=====  End of Animate on Scroll enter viewport  ======*/
 
 
 /*============================
@@ -231,6 +184,33 @@ $(window).on('scroll', function() {
 
 /*=====  End of GSAP  ======*/
 
+
+/*========================================================
+=            Trigger on entering viewport                =
+========================================================*/
+
+$(function($, win) {
+  $.fn.inViewport = function(cb) {
+   return this.each(function(i,el){
+     function visPx(){
+       var H = $(this).height(),
+       r = el.getBoundingClientRect(), t=r.top, b=r.bottom;
+       return cb.call(el, Math.max(0, t>0? H-t : (b<H?b:H)));
+   } visPx();
+   $(win).on("resize scroll", visPx);
+});
+};
+}(jQuery, window));
+// An element with class .onEnter gets class .triggered added on viewport enter
+$(".onEnter").inViewport(function(px){
+  if(px) {
+    $(this).addClass("triggered");
+    // Remove next line to make effect stay trigger
+} else { $(this).removeClass("triggered");
+}
+});
+
+/*===    /End - Trigger on entering viewport   ======*/
 
 
 /*======================================
