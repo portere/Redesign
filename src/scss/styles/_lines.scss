@@ -129,7 +129,7 @@
         transition: 1.3s 1s width cubic-bezier(0.175, 0.885, 0.32, 1.275);
         transform-origin: center;
         body.loaded & {
-            animation: slash 1.7s 5s ease-in-out;
+            animation: slash 1.7s 8s ease-in-out;
         }
         body.scrolled & {
         }
@@ -161,7 +161,7 @@
     margin-bottom: 0px;
     text-align: right;
     h1 {
-        transition: 2.5s 5s margin-right ease, 1s margin-top ease;
+        transition: 2.5s 8s margin-right ease, 1s margin-top ease;
         top: 50%;
         transform: translateY(-50%);
         position: relative;
@@ -196,7 +196,7 @@
     transition: 1s all ease;
     text-align: left;
     h1 {
-        transition: 2.5s 5s margin-left ease, 1s margin-top ease;
+        transition: 2.5s 8s margin-left ease, 1s margin-top ease;
         top: 50%;
         transform: translateY(-50%);
         position: relative;
@@ -274,7 +274,7 @@
       animation: DrawTextPath 5s cubic-bezier(.59,.03,.27,.89);
       animation-fill-mode: forwards;
       animation-direction: alternate;
-      animation-delay: 3s;
+      animation-delay: 5s;
       &:hover {
       }
   }
