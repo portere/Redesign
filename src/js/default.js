@@ -45,6 +45,30 @@ $(window).load(function(){
 // end document ready
 
 
+/*======================================
+=     Inertia Scroll uses GSAP         =
+======================================*/
+
+// $(function(){
+//     var $window = $(window);        //Window object
+//     var scrollTime = 3;             //Scroll time
+//     var scrollDistance = 350;       //Distance. Use smaller value for shorter scroll and greater value for longer scroll
+//     $window.on("mousewheel DOMMouseScroll", function(event){
+//         event.preventDefault();
+//         var delta = event.originalEvent.wheelDelta/120 || -event.originalEvent.detail/3;
+//         var scrollTop = $window.scrollTop();
+//         var finalScroll = scrollTop - parseInt(delta*scrollDistance);
+//         TweenMax.to($window, scrollTime, {
+//             scrollTo : { y: finalScroll, autoKill:true },
+//             ease: Expo.easeOut, //For more easing functions see http://api.greensock.com/js/com/greensock/easing/package-detail.html
+//             autoKill: true,
+//             overwrite: 5
+//         });
+//     });
+// });
+
+/*=====  End of Inertia Scroll  ======*/
+
 
 /*===============================
 =            Masking            =
@@ -60,7 +84,6 @@ $(document).ready(function(){
         mouseY = e.pageY;
         traX = ((4 * mouseX) / 200) + 50;
         traY = ((4 * mouseY) / 200) + 50;
-        console.log(traX);
         $("h1.mask, .bar").css({"background-position": traX + "%" + traY + "%"});
     });
 });
@@ -103,8 +126,9 @@ if(!$('#myCanvas').tagcanvas({
 
 
 
-
-// Add .scrolled to body after 1px of scroll
+/*========================================================
+=      Add .scrolled to body after 1px of scroll
+========================================================*/
 
 $(window).scroll(function(){
     var navOffset = 1;
@@ -132,17 +156,17 @@ topLimit = winHeight * -1,
 bottomLimit = winHeight * 1.5;
 // These distances are relative to the bottom of an element
 
-$(window).on('scroll', function() {
-    $('.scroll-animate').each(function() {
-        var thisTop = $(this).offset().top - $(window).scrollTop();
-        if (thisTop >= topLimit && (thisTop + $(this).height()) <= bottomLimit) {
-            $(this).addClass('intoPosition')
-        }
-        else{
-            $(this).removeClass('intoPosition')
-        }
+    $(window).on('scroll', function() {
+        $('.scroll-animate').each(function() {
+            var thisTop = $(this).offset().top - $(window).scrollTop();
+            if (thisTop >= topLimit && (thisTop + $(this).height()) <= bottomLimit) {
+                $(this).addClass('intoPosition')
+            }
+            else{
+                $(this).removeClass('intoPosition')
+            }
+        });
     });
-});
 });
 /*=====  End  ======*/
 
@@ -212,27 +236,47 @@ $(".onEnter").inViewport(function(px){
 
 /*===    /End - Trigger on entering viewport   ======*/
 
+  /* Contact Form
+   * ------------------------------------------------------ */
+   var ssContactForm = function() {
 
-/*======================================
-=     Inertia Scroll uses GSAP         =
-======================================*/
+    /* local validation */
+        $('#contactForm').validate({
 
-// $(function(){
-//     var $window = $(window);        //Window object
-//     var scrollTime = 2;           //Scroll time
-//     var scrollDistance = 500;       //Distance. Use smaller value for shorter scroll and greater value for longer scroll
-//     $window.on("mousewheel DOMMouseScroll", function(event){
-//         event.preventDefault();
-//         var delta = event.originalEvent.wheelDelta/120 || -event.originalEvent.detail/3;
-//         var scrollTop = $window.scrollTop();
-//         var finalScroll = scrollTop - parseInt(delta*scrollDistance);
-//         TweenMax.to($window, scrollTime, {
-//             scrollTo : { y: finalScroll, autoKill:true },
-//             ease: Expo.easeOut, //For more easing functions see http://api.greensock.com/js/com/greensock/easing/package-detail.html
-//             autoKill: true,
-//             overwrite: 5
-//         });
-//     });
-// });
+            /* submit via ajax */
+            submitHandler: function(form) {
+                var sLoader = $('#submit-loader');
 
-/*=====  End of Inertia Scroll  ======*/
+                $.ajax({
+                  type: "POST",
+                  url: "inc/sendEmail.php",
+                  data: $(form).serialize(),
+
+                  beforeSend: function() {
+                    sLoader.fadeIn();
+                  },
+                  success: function(msg) {
+                    // Message was sent
+                    if (msg == 'OK') {
+                        sLoader.fadeOut();
+                       $('#message-warning').hide();
+                       $('#contactForm').fadeOut();
+                       $('#message-success').fadeIn();
+                    }
+                    // There was an error
+                    else {
+                        sLoader.fadeOut();
+                       $('#message-warning').html(msg);
+                        $('#message-warning').fadeIn();
+                    }
+                  },
+                  error: function() {
+                    sLoader.fadeOut();
+                    $('#message-warning').html("Something went wrong. Please try again.");
+                     $('#message-warning').fadeIn();
+                  }
+              });
+            }
+
+        });
+   };
